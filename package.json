@@ -1,0 +1,19 @@
+{
+  "name": "zendarr_server",
+  "version": "1.0.0",
+  "description": "a mysterious messaging app-server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mangat-ram/zendarr_server.git"
+  },
+  "author": "Mangat Leelaram",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mangat-ram/zendarr_server/issues"
+  },
+  "homepage": "https://github.com/mangat-ram/zendarr_server#readme"
+}
