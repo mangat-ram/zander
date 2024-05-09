@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mangat-ram/zendarr_server/issues"
   },
-  "homepage": "https://github.com/mangat-ram/zendarr_server#readme"
+  "homepage": "https://github.com/mangat-ram/zendarr_server#readme",
+  "dependencies": {
+    "prettier": "^3.2.5"
+  }
 }
