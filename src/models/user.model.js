@@ -81,3 +81,25 @@ userSchema.methods.generateAccessToken = function(){
     }
   )
 }
+
+//Method to generate access token
+userSchema.methods.generateRefreshToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+    }
+  );
+};
+
+//update user when messages
+userSchema.statics.updateMessages = async function(userId,messageId){
+  return await this.findByIdAndUpdate(userId,{ $push: {messages: messageId}},
+    {new: true}
+  )
+}
+
+export const User = mongoose.model("User",userSchema);
