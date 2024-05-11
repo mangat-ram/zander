@@ -1,5 +1,4 @@
 // Error Handling Class to give Right Error to User Or FrontEnd Engineer
-
 class ApiError extends Error{
   constructor(
     statusCode,
