@@ -2,6 +2,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js"
 import { User } from "../models/user.model.js";
+import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 
 
@@ -82,6 +83,39 @@ const registerUser = asyncHandler(async(req,res) =>{
     .json(
       new ApiResponse(200,createdUser,"user regitered successfully.")
     )
+})
+
+
+
+const sendEmail = asyncHandler( async(req,res) => {
+  const { to, subject, text } = req.body;
+  const mailOptions = {
+    from: process.env.EMAIL_USERNAME,
+    to,
+    subject,
+    text
+  }
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD
+    }
+  })
+
+  transporter.sendMail(mailOptions,(error,info) => {
+    if (error){
+      throw new ApiError(500,"something went wrong while sending email.")
+    }else{
+      return res
+        .status(200)
+        .json(
+          new ApiResponse(200,{},`email sent successfully ${info.response}`)
+        )
+    }
+  })
+  
 })
 
 const loginUser = asyncHandler( async(req,res) => {
