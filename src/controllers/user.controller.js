@@ -85,7 +85,44 @@ const registerUser = asyncHandler(async(req,res) =>{
     )
 })
 
+const verifyEmail = asyncHandler( async(req,res) => {
+  const { username, code } = req.body;
+  const decodedUsername = decodeURIComponent(username);
+  const user = await User.findOne({username:decodedUsername});
+  if(!user){
+    return res
+      .status(404)
+      .json(
+        new ApiResponse(404,{},"user not found.")
+      )
+  }
 
+  const isCodeValid = user.verifyCode === code;
+  const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();
+
+  if (isCodeValid && isCodeNotExpired){
+    user.isVerified = true;
+    await user.save();
+
+    return res
+      .status(200)
+      .json(
+        new ApiResponse(200,{},"user verified successfully.")
+      )
+  }else if (!isCodeNotExpired) {
+  return res
+    .status(201)
+    .json(
+      new ApiResponse(200, {}, "User not found")
+    )
+  } else {
+    return res
+      .status(201)
+      .json(
+        new ApiResponse(200, {}, "Incorrect Verification code!")
+      )
+  }
+})
 
 const sendEmail = asyncHandler( async(req,res) => {
   const { to, subject, text } = req.body;
