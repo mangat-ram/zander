@@ -214,8 +214,6 @@ const logoutUser = asyncHandler(async (req, res) => {
     )
 })
 
-
-
 export {
   generateAccessAndRefreshToken,
   checkUniqueUser,
