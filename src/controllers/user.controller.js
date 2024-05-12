@@ -162,5 +162,6 @@ export {
   generateAccessAndRefreshToken,
   checkUniqueUser,
   registerUser,
+  sendEmail,
   loginUser
 }
