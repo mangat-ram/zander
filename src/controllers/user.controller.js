@@ -199,6 +199,7 @@ export {
   generateAccessAndRefreshToken,
   checkUniqueUser,
   registerUser,
+  verifyEmail,
   sendEmail,
   loginUser
 }
