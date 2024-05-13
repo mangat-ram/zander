@@ -265,5 +265,6 @@ export {
   verifyEmail,
   sendEmail,
   loginUser,
-  logoutUser
+  logoutUser,
+  refreshToken
 }
