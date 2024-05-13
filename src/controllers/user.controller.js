@@ -288,6 +288,28 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, req.user, "Current User Fetched Successfully."))
 })
 
+const updateAccountDetails = asyncHandler(async (req, res) => {
+  const { userName, name, email } = req.body;
+  if (!userName && !name && !email) {
+    throw new ApiError(400, "At least one field is required to update!");
+  }
+
+  const updateFields = {};
+  if (userName) updateFields.userName = userName;
+  if (name) updateFields.name = name;
+  if (email) updateFields.email = email;
+
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    { $set: updateFields },
+    { new: true }
+  ).select("-passWord");
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, user, "Account Details updated Successfully."));
+});
+
 export {
   generateAccessAndRefreshToken,
   checkUniqueUser,
