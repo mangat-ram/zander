@@ -290,5 +290,6 @@ export {
   sendEmail,
   loginUser,
   logoutUser,
-  refreshToken
+  refreshToken,
+  changeCurrentPassword
 }
